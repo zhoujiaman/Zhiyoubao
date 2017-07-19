@@ -1,4 +1,4 @@
-下单接口
+﻿下单接口
 $config = Config::get('zhiyoubao');
 $app = new ZhiyoubaoApplication($config);
 $server = new SendCodeServiceProvider();
@@ -12,8 +12,8 @@ $order = [
     'goodsName' => 'test',
     'remark' => 'test',
 ];
-$server->setLinkName('周家满')
-    ->setLinkMobile('13884732861')
+$server->setLinkName('zhou')
+    ->setLinkMobile('13')
     ->setOrderCode('t0000000000000001')
     ->setTicketOrder($order);
 dump($app->run($server));
