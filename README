@@ -1,0 +1,78 @@
+下单接口
+$config = Config::get('zhiyoubao');
+$app = new ZhiyoubaoApplication($config);
+$server = new SendCodeServiceProvider();
+$order = [
+    'orderCode' => 't0000000000000001',
+    'price' => '1.00',
+    'quantity' => 2,
+    'totalPrice' => '2.00',
+    'occDate' => '2017-06-20',
+    'goodsCode' => 'PST20170606118947',
+    'goodsName' => 'test',
+    'remark' => 'test',
+];
+$server->setLinkName('周家满')
+    ->setLinkMobile('13884732861')
+    ->setOrderCode('t0000000000000001')
+    ->setTicketOrder($order);
+dump($app->run($server));
+
+
+查询检票状态
+$config = Config::get('zhiyoubao');
+$app = new ZhiyoubaoApplication($config);
+$server = new CheckStatusQueryServiceProvider();
+$server->setOrderCode('t0000000000000001');
+dump($app->run($server));
+
+发码图片查询
+$config = Config::get('zhiyoubao');
+$app = new ZhiyoubaoApplication($config);
+$server = new SendCodeImgServiceProvider();
+$server->setOrderCode('t0000000000000001');
+dump($app->run($server));
+
+发送短信
+$config = Config::get('zhiyoubao');
+$app = new ZhiyoubaoApplication($config);
+$server = new SendSmServiceProvider();
+$server->setOrderCode('t0000000000000001');
+dump($app->run($server));
+
+部分退票
+$config = Config::get('zhiyoubao');
+$app = new ZhiyoubaoApplication($config);
+$server = new ReturnTicketNumNewServiceProvider();
+$server->setOrderCode('t0000000000000001')
+    ->setReturnNum('1')
+    ->setThirdReturnCode('f000001');
+dump($app->run($server));
+
+订单查询
+$config = Config::get('zhiyoubao');
+$app = new ZhiyoubaoApplication($config);
+$server = new QueryOrderServiceProvider();
+$server->setOrderCode('t0000000000000001');
+dump($app->run($server));
+
+退票情况查询
+$config = Config::get('zhiyoubao');
+$app = new ZhiyoubaoApplication($config);
+$server = new QueryRetreatStatusServiceProvider();
+$server->setRetreatBatchNo('327afba3138e4618a952ce475557732b');
+dump($app->run($server));
+
+获取二维码链接
+$config = Config::get('zhiyoubao');
+$app = new ZhiyoubaoApplication($config);
+$server = new QueryImgUrlServiceProvider();
+$server->setOrderCode('t0000000000000002');
+dump($app->run($server));
+
+改签
+$config = Config::get('zhiyoubao');
+$app = new ZhiyoubaoApplication($config);
+$server = new OrderEndorseServiceProvider();
+$server->setSubOrderCode('t0000000000000002')->setNewOccDate('2017-06-22');
+dump($app->run($server));
